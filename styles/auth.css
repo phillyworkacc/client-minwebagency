@@ -1,0 +1,28 @@
+.auth {
+   width: 100vw;
+   height: 100vh;
+   display: flex;
+   align-items: start;
+   justify-content: center;
+   background-color: #eaebff;
+}
+
+.auth .auth-container {
+   width: 100%;
+   max-width: 500px;
+   height: fit-content;
+   padding: 40px 20px;
+   display: flex;
+   flex-direction: column;
+   text-align: center;
+   gap: 10px;
+}
+
+.auth .auth-container .form-content {
+   width: 100%;
+   padding: 5px 0;
+}
+
+.auth .auth-container .form-content input { width: 100%; border: 1px solid #efefef; }
+.auth .auth-container .form-content input:focus { border: 1px solid #1121ff; }
+.auth .auth-container .form-content button { width: 100%; padding: 12px; }
