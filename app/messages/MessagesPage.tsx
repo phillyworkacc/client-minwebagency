@@ -1,5 +1,5 @@
 "use client"
-import AppWrapper from "@/components/AppWrapper/AppWrapper";
+import MessagesWrapper from "@/components/AppWrapper/MessagesWrapper";
 import ConversationBox from "@/components/ConversationBox/ConversationBox";
 
 type MessagesPageProps = {
@@ -9,8 +9,11 @@ type MessagesPageProps = {
 
 export default function MessagesPage ({ client, contacts }: MessagesPageProps) {
    return (
-      <AppWrapper contentWrapperStyles={{ padding: 0 }} isCustomBuild={(client.websiteBuildType === "custom-build")}>
+      <MessagesWrapper 
+         contentWrapperStyles={{ padding: 0 }} 
+         isCustomBuild={(client.websiteBuildType === "custom-build")}
+      >
          <ConversationBox convos={contacts} />
-      </AppWrapper>
+      </MessagesWrapper>
    )
 }

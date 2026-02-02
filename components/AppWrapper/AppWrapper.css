@@ -4,6 +4,7 @@
    align-items: center;
    justify-content: center;
    padding: 20px;
+   height: 10svh;
    background-color: white;
    border-bottom: 1px solid #f1f1f1;
    position: sticky;
