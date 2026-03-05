@@ -5,6 +5,7 @@ import { conversationsTable, jobsTable, messagesTable } from "@/db/schemas";
 import { and, eq } from "drizzle-orm";
 import { getCurrentUser } from "../actions/user";
 import MessagesPage from "./MessagesPage";
+import LoadingPage from "@/components/LoadingPage/LoadingPage";
 
 export async function generateMetadata() {
    const currentClient: any = await getCurrentUser();
@@ -57,6 +58,6 @@ export default async function Messages () {
    if (allClientConversations.success) {
       return <MessagesPage client={serialize(currentClient)} contacts={serialize(allClientConversations.data)} />
    } else {
-      return <MessagesPage client={serialize(currentClient)} contacts={serialize([])} />
+      return <LoadingPage />
    }
 }

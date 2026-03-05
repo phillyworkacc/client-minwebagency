@@ -5,6 +5,7 @@ import { badReviewsTable } from "@/db/schemas";
 import { eq } from "drizzle-orm";
 import { getCurrentUser } from "../actions/user";
 import BadReviewsPage from "./BadReviews";
+import LoadingPage from "@/components/LoadingPage/LoadingPage";
 
 export async function generateMetadata() {
    const currentClient: any = await getCurrentUser();
@@ -35,6 +36,6 @@ export default async function BadReviews () {
    if (badReviews.success) {
       return <BadReviewsPage user={serialize(currentClient)} badReviews={serialize(badReviews.data)} />
    } else {
-      return <BadReviewsPage user={serialize(currentClient)} badReviews={serialize([])} />
+      return <LoadingPage />
    }
 }
