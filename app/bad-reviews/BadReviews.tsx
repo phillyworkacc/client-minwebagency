@@ -12,6 +12,9 @@ export default function BadReviewsPage ({ user, badReviews }: BadReviewsPageProp
    return (
       <AppWrapper isCustomBuild={(user.websiteBuildType === "custom-build")}>
          <div className="text-xl bold-600 full mt-15">Bad Reviews</div>
+         {badReviews.length === 0 && (<>
+            <div className="text-xs full grey-5 pd-1">You have no bad reviews</div>
+         </>)}
          <div className="box full pd-15">
             <ListView 
                items={badReviews}
