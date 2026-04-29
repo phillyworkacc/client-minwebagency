@@ -10,6 +10,9 @@ import { sendMessageToClientCustomer } from "@/app/actions/twilio-sms";
 import Spacing from "../Spacing/Spacing";
 import LoadingCard from "../Card/LoadingCard";
 import AwaitButton from "../AwaitButton/AwaitButton";
+import MultiActionDropdown from "../MultiActionDropdown/MultiActionDropdown";
+import { useModal } from "../Modal/ModalContext";
+import AddNameToCustomer from "@/forms/AddNameToCustomer";
 
 type ConversationBoxProps = {
    convos: ConversationList[];
@@ -26,6 +29,8 @@ export default function ConversationBox ({ convos }: ConversationBoxProps) {
    const [message, setMessage] = useState('');
    const [messages, setMessages] = useState<Message[] | 'loading'>('loading');
    const messagesContainerRef = useRef<HTMLDivElement | null>(null);
+
+   const { showModal, close } = useModal();
 
    useEffect(() => {
       setDeviceType(window.innerWidth >= mobileThreshold ? 'desktop' : 'mobile');
@@ -87,6 +92,24 @@ export default function ConversationBox ({ convos }: ConversationBoxProps) {
       const sendMessage = await sendMessageToClientCustomer(selectedConversation?.clientId!, selectedConversation?.conversationId!, selectedConversation?.customerPhone!, messageBody);
       if (!sendMessage) setMessages((p: any) => ([ ...p.slice(0,-1) ]));
    }
+
+   function addNameToConversationCustomerForm () {
+      showModal({ content: <>
+         <AddNameToCustomer 
+            conversation={selectedConversation!} 
+            onChangedName={(name) => {
+               setSelectedConversation(p => ({ ...p!, customerName: name }))
+               setConversations(prev => ([
+                  ...prev.filter(c => (c.conversationId !== selectedConversation?.conversationId)),
+                  {
+                     ...selectedConversation!,
+                     customerName: name
+                  }
+               ]))
+            }}
+         />
+      </> })
+   } 
 
    return (
       <div className="conversation-box">
@@ -175,6 +198,14 @@ export default function ConversationBox ({ convos }: ConversationBoxProps) {
                            <div className="text-xt grey-4 fit pd-05">Sent at {formatMilliseconds(parseInt(message.date), false, true)}</div>
                         </div>
                      ))}
+                     {selectedConversation?.customerName.startsWith("Unknown (") && (<>
+                        <div className="box full dfb column align-center justify-center gap-5 pd-05">
+                           <div className="text-xxs full text-center">Add a name to this customer!</div>
+                           <div className="box full dfb align-center justify-center h-fit">
+                              <button className="xxxxs pd-05 pdx-1" onClick={addNameToConversationCustomerForm}>Add Name</button>
+                           </div>
+                        </div>
+                     </>)}
                   </>)}
                </div>
                <div className="send-message-container">

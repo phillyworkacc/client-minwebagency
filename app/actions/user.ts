@@ -1,7 +1,7 @@
 "use server"
 import { dalDbOperation, dalRequireAuth } from "@/dal/helpers";
 import { db } from "@/db";
-import { clientsTable } from "@/db/schemas";
+import { clientsTable, conversationsTable } from "@/db/schemas";
 import { authOptions } from "@/lib/authOptions";
 import { hashPwd } from "@/utils/uuid";
 import { and, eq } from "drizzle-orm";
@@ -100,4 +100,23 @@ export async function sendReviewForClient (clientId: string, clientReviews: stri
       })
    )
    return sent.success ? sent.data : false;
+}
+
+export async function updateConversationCustomerName (conversationId: string, newName: string) {
+   const result = await dalRequireAuth(async (user) =>
+      dalDbOperation(async () => {
+         const res = await db.update(conversationsTable).set({ customerName: newName })
+            .where(and(
+               eq(conversationsTable.conversationId, conversationId),
+               eq(conversationsTable.clientId, user.clientid!)
+            ));
+         return (res.rowCount === 1);
+      })
+   );
+   if (result.success) {
+      return result.data;
+   } else {
+      console.log(result.error);
+      return result.success;
+   }
 }
