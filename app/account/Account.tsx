@@ -4,13 +4,14 @@ import Spacing from "@/components/Spacing/Spacing";
 import AwaitButton from "@/components/AwaitButton/AwaitButton";
 import { CustomUserIcon } from "@/components/Icons/Icon";
 import { formatMilliseconds } from "@/utils/date";
-import { KeyRound, LogOut } from "lucide-react";
+import { CreditCard, KeyRound, LogOut } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { updateClientAccount } from "../actions/user";
 import { signOut, useSession } from "next-auth/react";
 import { reloadSession } from "@/lib/reloadSession";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type AccountPageProps = {
    client: Client;
@@ -109,7 +110,21 @@ export default function AccountPage ({ client }: AccountPageProps) {
                Save Changes
             </AwaitButton>
          </div>
+         
          <Spacing size={3} />
+         <div className="box full pd-1">
+            <div className="text-m mb-1 bold-600">Manage Billing</div>
+            <div className="text-xs pd-05">Manage your subscription, upgrade, see your invoices, payment methods, and more</div>
+            <div className="box full pd-1">
+               <Link href={`https://billing.stripe.com/p/login/6oU28tbrVgpq28J5Nw8k800?prefilled_email=${client.email}`} className="box fit">
+                  <button className="xxxs pd-1 pdx-2">
+                     <CreditCard size={16} /> Manage Billing
+                  </button>
+               </Link>
+            </div>
+         </div>
+
+         <Spacing size={1} />
          <div className="box full pd-1">
             <div className="text-m mb-1 bold-600">Account Security</div>
             <div className="box full pd-1">
