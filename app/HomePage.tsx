@@ -8,6 +8,8 @@ import ListView from "@/components/ListView/ListView";
 import ClientWebsite from "@/components/ClientWebsite/ClientWebsite";
 import AwaitButton from "@/components/AwaitButton/AwaitButton";
 import TemplateClient from "./TemplateClient";
+import EnableNotificationsCard from "@/components/EnableNotificationsCard/EnableNotificationsCard";
+import Link from "next/link";
 
 type HomePageProps = {
    user: Client;
@@ -23,6 +25,14 @@ export default function HomePage ({ user, websites, conversations, jobsCompleted
          <div className="box full pd-1">
             <ClientBanner client={user} />
          </div>
+
+         <div className="box full pd-1">
+            <EnableNotificationsCard client={user} />
+         </div>
+
+         <Link href={"/test-noti"}>
+            <button>test</button>
+         </Link>
 
          <TemplateClient
             client={user} 

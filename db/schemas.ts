@@ -1,4 +1,4 @@
-import { bigint, boolean, integer, pgTable, serial, text, uniqueIndex } from "drizzle-orm/pg-core";
+import { bigint, boolean, integer, jsonb, pgTable, serial, text } from "drizzle-orm/pg-core";
 
 export const usersTable = pgTable("users", {
    id: serial("id").primaryKey(),
@@ -94,7 +94,7 @@ export const conversationsTable = pgTable("conversations", {
    conversationId: text("conversation_id").unique().notNull(),
    clientId: text("client_id"),
    customerName: text("customer_name"),
-   customerPhone: text("customer_phone").notNull().unique(),
+   customerPhone: text("customer_phone"),
    lastMessageId: text("last_message_id")
 })
 
@@ -122,4 +122,17 @@ export const badReviewsTable = pgTable("bad_reviews", {
    email: text("email"),
    review: text("review"),
    createdAt: text("created_at")
+})
+
+export const autoReplyLogsTable = pgTable("auto_reply_logs", {
+   phone: text("phone").notNull().unique(),
+   lastSentAt: text("last_sent_at").notNull(),
+})
+
+export const pushNotificationsTable = pgTable("push_notifications", {
+   id: serial("id").primaryKey(),
+   clientId: text("client_id"),
+   subscription: jsonb("subscription"),
+   createdAt: text("created_at"),
+   updatedAt: text("updated_at")
 })

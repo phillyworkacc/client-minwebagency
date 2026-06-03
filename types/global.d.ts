@@ -172,6 +172,14 @@ type ClientFormSubmission = {
    date: number;
 }
 
+type PushNotification = {
+   id: number;
+   clientid: string;
+   subscription: object;
+   createdAt: string;
+   updatedAt: string;
+}
+
 type FormValueItem = {
    text: string;
    email: string;

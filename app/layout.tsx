@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { ModalProvider } from "@/components/Modal/ModalContext";
 import { Toaster } from "sonner";
 import SessionWrapper from "@/components/SessionWrapper/SessionWrapper";
+import NotificationsProvider from "@/components/NotificationsProvider/NotificationsProvider";
 
 export const metadata: Metadata = {
   title: "Client Dashboard",
@@ -17,21 +18,23 @@ export default function RootLayout({
 }>) {
   return (
     <SessionWrapper>
-      <ModalProvider>
-        <html lang="en">
-          <head>
-            <link rel="manifest" href="/manifest.json" />
-            <link rel="apple-touch-icon" href="/favicon.ico" />
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-            <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
-          </head>
-          <body className={InterFont.className}>
-            <Toaster richColors position="top-center" />
-            {children}
-          </body>
-        </html>
-      </ModalProvider>
+      <NotificationsProvider>
+        <ModalProvider>
+          <html lang="en">
+            <head>
+              <link rel="manifest" href="/manifest.json" />
+              <link rel="apple-touch-icon" href="/favicon.ico" />
+              <link rel="preconnect" href="https://fonts.googleapis.com" />
+              <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+              <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+            </head>
+            <body className={InterFont.className}>
+              <Toaster richColors position="top-center" />
+              {children}
+            </body>
+          </html>
+        </ModalProvider>
+      </NotificationsProvider>
     </SessionWrapper>
   );
 }
