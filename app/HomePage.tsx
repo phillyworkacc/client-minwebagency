@@ -26,13 +26,7 @@ export default function HomePage ({ user, websites, conversations, jobsCompleted
             <ClientBanner client={user} />
          </div>
 
-         <div className="box full pd-1">
-            <EnableNotificationsCard client={user} />
-         </div>
-
-         <Link href={"/test-noti"}>
-            <button>test</button>
-         </Link>
+         <EnableNotificationsCard client={user} />
 
          <TemplateClient
             client={user} 

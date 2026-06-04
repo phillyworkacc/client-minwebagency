@@ -16,6 +16,7 @@ export async function enableNotifications (clientId: string) {
          body: JSON.stringify({ clientId, subscription })
       });
 
+      localStorage.setItem("client-minweb-enabled-notifications", "enabled");
       toast.success("Notifications Enabled")
    } catch (err) {
       toast.error("Failed to enable notifications");
