@@ -10,15 +10,15 @@ import { sendMessageToClientCustomer } from "@/app/actions/twilio-sms";
 import Spacing from "../Spacing/Spacing";
 import LoadingCard from "../Card/LoadingCard";
 import AwaitButton from "../AwaitButton/AwaitButton";
-import MultiActionDropdown from "../MultiActionDropdown/MultiActionDropdown";
 import { useModal } from "../Modal/ModalContext";
 import AddNameToCustomer from "@/forms/AddNameToCustomer";
 
 type ConversationBoxProps = {
    convos: ConversationList[];
+   selectedConvo?: string;
 }
 
-export default function ConversationBox ({ convos }: ConversationBoxProps) {
+export default function ConversationBox ({ convos, selectedConvo }: ConversationBoxProps) {
    const [deviceType, setDeviceType] = useState<"desktop" | "mobile">("desktop");
    const mobileThreshold = 750;
 
@@ -35,6 +35,10 @@ export default function ConversationBox ({ convos }: ConversationBoxProps) {
    useEffect(() => {
       setDeviceType(window.innerWidth >= mobileThreshold ? 'desktop' : 'mobile');
       window.addEventListener('resize', () => setDeviceType(window.innerWidth >= mobileThreshold ? 'desktop' : 'mobile'));
+
+      if (selectedConvo) {
+         selectConversation(convos.filter(c => c.conversationId == selectedConvo)[0]);
+      }
    }, []);
 
    useEffect(() => {
