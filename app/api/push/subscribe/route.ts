@@ -5,11 +5,6 @@ import { eq } from "drizzle-orm";
 export async function POST(req: Request) {
    try {
       const pushNotificationBody = await req.json();
-
-      console.log(pushNotificationBody);
-
-      // find old subscription and delete it
-      await db.delete(pushNotificationsTable).where(eq(pushNotificationsTable.clientId, pushNotificationBody.clientId));
    
       // insert new subscription
       await db.insert(pushNotificationsTable).values({
